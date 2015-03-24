@@ -11,7 +11,7 @@
 
    The above example will download the file object.exe to the current dirrectory.
 .EXAMPLE
-   PS C:\>Get-URIFile -Uri "http://fqdn.local/path/to/object.exe" -Destination "C:\temp 1"
+   C:\PS>Get-URIFile -Uri "http://fqdn.local/path/to/object.exe" -Destination "C:\temp 1"
 
    The above example will download the file object.exe to the C:\temp 1 directory.
 .INPUTS
