@@ -50,7 +50,7 @@
         for($i=0;$i -lt $Uri.Length; $i++)
         {
             $web = New-Object System.Net.WebClient
-            $web.DownloadFileAsync($Uri[$i], "$Destination\$($Uri[$i].Substring($Uri[$i].LastIndexOf('/') + 1))")
+            $web.DownloadFile($Uri[$i], "$Destination\$($Uri[$i].Substring($Uri[$i].LastIndexOf('/') + 1))")
             $web.Dispose()
         }
     }
