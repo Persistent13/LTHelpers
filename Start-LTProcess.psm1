@@ -44,6 +44,10 @@
         try
         {
             $process = Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -PassThru
+            while(!$process.HasExited -eq $false)
+            {
+                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file installed successfully."
+            }
         }
         catch [System.Exception]
         {
