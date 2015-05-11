@@ -53,7 +53,7 @@
         try
         {
             $process = Start-Process -FilePath $FilePath -ArgumentList $ArgumentList -PassThru
-            if([System.IO.Path]::GetExtension("$FilePath") -eq ".msi")
+            if((Get-ItemProperty -Path $FilePath).Extension -eq ".msi")
             {
                 $process = Get-Process msiexec | Sort-Object StartTime | Select-Object -Last 1 #Finds the msi process id.
             }
