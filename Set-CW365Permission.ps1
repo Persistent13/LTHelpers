@@ -13,9 +13,12 @@ $O365Session = New-PSSession -ConfigurationName Microsoft.Exchange `
     -ConnectionUri https://outlook.office365.com/powershell-liveid/ `
     -Credential $O365Credential -Authentication Basic -AllowRedirection
 
+#below suppresses warnings
+$WarningPreference = "SilentlyContinue"
 #below starts the remote session
-Import-PSSession $O365Session
+Import-PSSession $O365Session | Out-Null
 #below configured the access rights
-Add-MailboxPermission -Identity $O365Alias -User CWAdmin -AccessRights FullAccess -InheritanceType All -Confirm $false
+Add-MailboxPermission -Identity $O365Alias -User CWAdmin -AccessRights FullAccess `
+    -InheritanceType All -Confirm:$false -WarningAction SilentlyContinue | Out-Null
 #below closes the remote session
 Remove-PSSession -ComputerName "outlook.office365.com"
