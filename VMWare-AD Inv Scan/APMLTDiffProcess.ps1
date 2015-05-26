@@ -1,5 +1,7 @@
 ﻿#This script requires the PoSHMySQL module.
 #https://github.com/Persistent13/PoSHMySQL
+#This script requires at least PowerShell version 3.
+#requires -version 3
 
 $LTServer = "cns-hq-labtech"
 $PoSHMySQLPath = "\\$LTServer\LTSHARE\Transfer\Scripts\PoSHMySQL\PS.MySQL.psm1"
