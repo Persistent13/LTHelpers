@@ -57,9 +57,16 @@
             {
                 $process = Get-Process msiexec | Sort-Object StartTime | Select-Object -Last 1 #Finds the msi process id.
             }
-            while(Wait-Process -Id $process.Id -Timeout $($TimeOut / 1000)) #Converts TimeOut to seconds.
+            do {Start-Sleep -Seconds 1}
+            until ($process.HasExited -or -not $process.WaitForExit($TimeOut))
+            if($process.ExitCode -eq 0)
             {
-                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file installed successfully."
+                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file has installed successfully."
+            }
+            else
+            {
+                $process.Kill()
+                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
             }
         }
         catch [System.Exception]
@@ -73,11 +80,6 @@
                 $process.Kill()
                 Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
             }
-        }
-        if(!$process.WaitForExit($TimeOut))
-        {
-            $process.Kill()
-            Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
         }
     }
     End
