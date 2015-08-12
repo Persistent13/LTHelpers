@@ -10,8 +10,19 @@
    Example of how to use this cmdlet
 .EXAMPLE
    Another example of how to use this cmdlet
+.INPUTS
+   None.
+.OUTPUTS
+   String.
+.NOTES
+   String output is due to LT being unable to handle the Write-Error cmdlet and will only handle stdout from Write-Output.
+.COMPONENT
+   The component this cmdlet belongs to
+.ROLE
+   LabTech program install assisstence.
+.FUNCTIONALITY
+   Used to ease the work of installing a program via LabTech.
 #>
-
     Param
     (
         # Path to the executable.
@@ -31,7 +42,13 @@
         [Parameter(Mandatory=$false,
                    Position=2)]
         [int32]
-        $TimeOut = 600000
+        $TimeOut = 600000,
+
+		# Switch to silence output.
+        [Parameter(Mandatory=$false,
+                   Position=2)]
+		[boolean]
+		$Silent = $false
     )
 
     Begin
@@ -61,24 +78,36 @@
             until ($process.HasExited -or -not $process.WaitForExit($TimeOut))
             if($process.ExitCode -eq 0)
             {
-                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file has installed successfully."
+				if(!$Silent)
+				{
+					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file has installed successfully."
+				}
             }
             else
             {
                 $process.Kill()
-                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
+				if(!$Silent)
+				{
+					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
+				}
             }
         }
         catch [System.Exception]
         {
             if($process.HasExited)
             {
-                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
+				if(!$Silent)
+				{
+					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
+				}
             }
             else
             {
                 $process.Kill()
-                Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
+				if(!$Silent)
+				{
+					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
+				}
             }
         }
     }
