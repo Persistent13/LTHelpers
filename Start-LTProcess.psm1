@@ -46,9 +46,9 @@
 
 		# Switch to silence output.
         [Parameter(Mandatory=$false,
-                   Position=2)]
-		[boolean]
-		$Silent = $false
+                   Position=3)]
+		[switch]
+		$Silent
     )
 
     Begin
@@ -78,7 +78,7 @@
             until ($process.HasExited -or -not $process.WaitForExit($TimeOut))
             if($process.ExitCode -eq 0)
             {
-				if(!$Silent)
+				if($Silent)
 				{
 					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file has installed successfully."
 				}
@@ -86,7 +86,7 @@
             else
             {
                 $process.Kill()
-				if(!$Silent)
+				if($Silent)
 				{
 					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
 				}
@@ -96,7 +96,7 @@
         {
             if($process.HasExited)
             {
-				if(!$Silent)
+				if($Silent)
 				{
 					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
 				}
@@ -104,7 +104,7 @@
             else
             {
                 $process.Kill()
-				if(!$Silent)
+				if($Silent)
 				{
 					Write-Output "The $($FilePath.Substring($FilePath.LastIndexOf('\') + 1)) file did not install, please install manually."
 				}
@@ -113,5 +113,6 @@
     }
     End
     {
+		Write-Verbose "The cmdlet has reach the end."
     }
 }
