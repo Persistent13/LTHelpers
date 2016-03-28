@@ -1,0 +1,6 @@
+C:\Users\dclark\Documents\Git\LTHelpers\LTPopup\bin\Debug\LTPopup.exe.config
+C:\Users\dclark\Documents\Git\LTHelpers\LTPopup\bin\Debug\LTPopup.exe
+C:\Users\dclark\Documents\Git\LTHelpers\LTPopup\bin\Debug\LTPopup.pdb
+C:\Users\dclark\Documents\Git\LTHelpers\LTPopup\obj\Debug\LTPopup.csprojResolveAssemblyReference.cache
+C:\Users\dclark\Documents\Git\LTHelpers\LTPopup\obj\Debug\LTPopup.exe
+C:\Users\dclark\Documents\Git\LTHelpers\LTPopup\obj\Debug\LTPopup.pdb
